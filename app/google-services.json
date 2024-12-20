@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087441326456",
+    "project_id": "curlymessenger",
+    "storage_bucket": "curlymessenger.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087441326456:android:775a92500f2f9b59ddb88d",
+        "android_client_info": {
+          "package_name": "com.example.curlymessenger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADcrdSVWA9yoQwoAChY3QcMO58h59hnU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
