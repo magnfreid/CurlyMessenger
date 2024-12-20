@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.curlymessenger"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.curlymessenger"
@@ -16,6 +16,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        viewBinding = true
     }
 
     buildTypes {
