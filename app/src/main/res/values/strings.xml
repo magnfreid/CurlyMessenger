@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CurlyMessenger</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="passowrdConfinrmation">Password Confirmation</string>
+    <string name="email">Email</string>
+    <string name="btnLoginUp">Login up</string>
+    <string name="textregister">Register</string>
+
 </resources>
