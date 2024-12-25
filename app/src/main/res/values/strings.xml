@@ -7,6 +7,11 @@
     <string name="btnLoginUp">Login up</string>
     <string name="textaccount">I have Account</string>
 
+    <!-- This is the Google OAuth 2.0 web client ID  find in json firbase id cline id replace to default_web_client_id
+    <string name="default_web_client_id">default_web_client_id</string>
+
+     -->
+
 
     <string name="textregister">Register</string>
 

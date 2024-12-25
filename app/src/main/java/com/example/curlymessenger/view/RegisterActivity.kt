@@ -1,73 +1,121 @@
 package com.example.curlymessenger.view
 
 import android.content.Intent
-import android.view.View
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.curlymessenger.R
 import com.example.curlymessenger.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 
 class RegisterActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var prg: ProgressBar
-    private lateinit var name: String
-    private lateinit var email: String
-    private lateinit var password: String
-    private lateinit var confPass: String
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private val RC_SIGN_IN = 9001 // Unique request code for Google Sign-In
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        prg = binding.progressBar
+        firebaseAuth = FirebaseAuth.getInstance()
+        prg = binding.progressBar2
 
-        binding.textacont.setOnClickListener {
-            // Navigate to LoginActivity
-            // startActivity(Intent(this, LoginActivity::class.java))
+        // Configure Google Sign-In
+        val googleSignInOptions = com.google.android.gms.auth.api.signin.GoogleSignInOptions.Builder(
+            GoogleSignInOptions.DEFAULT_SIGN_IN)
+            // .requestIdToken(getString(R.string.default_web_client_id))  // Set your web client ID this is in firbase
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+
+        // Google Sign-In button click
+        binding.imagbtngoogle.setOnClickListener {
+            signInWithGoogle()
         }
 
+        // Regular Email Registration logic
         binding.buttloginup.setOnClickListener {
-            name = binding.editname.text.toString().trim()
-            email = binding.editEmailAddress.text.toString().trim()
-            password = binding.editPassword.text.toString().trim()
-            confPass = binding.editPassConfir.text.toString().trim()
+            val name = binding.editname.text.toString().trim()
+            val email = binding.editEmailAddress.text.toString().trim()
+            val password = binding.editPassword.text.toString().trim()
+            val confPass = binding.editPassConfir.text.toString().trim()
 
-            // Validate input fields
             when {
                 name.isEmpty() -> showToast("Please enter a name")
                 email.isEmpty() -> showToast("Please enter an email")
                 password.isEmpty() -> showToast("Please enter a password")
                 confPass.isEmpty() -> showToast("Please confirm your password")
                 password != confPass -> showToast("Passwords do not match")
-                else -> creatAccount(name, email, password, confPass)
+                else -> createAccount(name, email, password)
             }
         }
     }
 
-    private fun creatAccount(name: String, email: String, password: String, confPass: String) {
-        // Show ProgressBar
+    private fun createAccount(name: String, email: String, password: String) {
         prg.visibility = View.VISIBLE
 
-
-        //  Firebase Auth here for actual account creation
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                // Hide ProgressBar
                 prg.visibility = View.GONE
                 if (task.isSuccessful) {
                     showToast("Account created successfully")
-                    // Navigate to another activity
                     // startActivity(Intent(this, LoginActivity::class.java))
                 } else {
                     showToast("Failed to create account: ${task.exception?.message}")
+                }
+            }
+    }
+
+    // Google Sign-In logic
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    firebaseAuthWithGoogle(account)
+                }
+            } catch (e: ApiException) {
+                showToast("Google Sign-In failed: ${e.message}")
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        prg.visibility = View.VISIBLE
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                prg.visibility = View.GONE
+                if (task.isSuccessful) {
+                    showToast("Google Sign-In successful")
+                    // Navigate to another activity (e.g., Home screen)
+                    // startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                } else {
+                    showToast("Google Sign-In failed: ${task.exception?.message}")
                 }
             }
     }
