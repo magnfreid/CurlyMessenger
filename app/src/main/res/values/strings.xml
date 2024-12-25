@@ -5,6 +5,9 @@
     <string name="passowrdConfinrmation">Password Confirmation</string>
     <string name="email">Email</string>
     <string name="btnLoginUp">Login up</string>
+    <string name="btnLogin">Login</string>
     <string name="textregister">Register</string>
+    <string name="textlogin">Login</string>
+    <string name="account">I have Account</string>
 
 </resources>
