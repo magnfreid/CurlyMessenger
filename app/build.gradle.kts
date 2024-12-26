@@ -47,9 +47,13 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //circleimageview
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    //firbase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+   // implementation ("com.google.firebase:firebase-database:20.1.0")
 }
