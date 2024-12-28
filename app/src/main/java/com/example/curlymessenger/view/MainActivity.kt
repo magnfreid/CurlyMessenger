@@ -29,13 +29,32 @@ class MainActivity : AppCompatActivity() {
 
         // Set up RecyclerView
         setupRecyclerView()
+        // localdata
+        //generateLocalData()
 
         // Fetch data from Firebase
        // fetchUsersFromFirebase()
         // Set up search functionality
         setupSearchListener()
     }
+    // locadata prova recyclerview
+    /*
+    private fun generateLocalData() {
+        userList.add(User("Ahmed", "hello"))
+        userList.add(User("Sara", "hej"))
+        userList.add(User("Mohamed", "Mheloo"))
+        userList.add(User("Yasmine", "hej"))
+        userList.add(User("Omar", "hejello"))
+        userList.add(User("Ahmed", "hello"))
+        userList.add(User("Sara", "hej"))
+        userList.add(User("Mohamed", "Mheloo"))
+        userList.add(User("Yasmine", "hej"))
+        userList.add(User("Omar", "hejello"))
 
+        // نسخ البيانات إلى القائمة المفلترة
+        filteredUserList.addAll(userList)
+    }
+    */
     private fun setupRecyclerView() {
         binding.myrcycler.layoutManager = LinearLayoutManager(this)
 
