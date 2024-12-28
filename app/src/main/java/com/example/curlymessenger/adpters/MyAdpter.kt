@@ -1,6 +1,7 @@
 package com.example.curlymessenger.adapter
 
 import android.view.LayoutInflater
+
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -25,7 +26,6 @@ class MyAdapter(
             textMessage.text = user.messge
 
 
-            // Uncomment to load the user's image
 
 
             // Set click listener

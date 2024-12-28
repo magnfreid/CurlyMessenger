@@ -70,12 +70,7 @@ class MainActivity : AppCompatActivity() {
         })
     }*/
 
-  /*  private fun openChatActivity(user: User) {
-        //val intent = Intent(this, ChatActivity::class.java)
-        intent.putExtra("userName", user.name)
-        intent.putExtra("userId", user.id) // Assuming `User` has an `id` field
-        startActivity(intent)
-    }*/
+
 // fun search
     private fun setupSearchListener() {
         val searchEditText: EditText = binding.Editcharch
