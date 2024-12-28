@@ -40,9 +40,12 @@ class FirestoreRepository {
         addAllUsersSnapshotListener()
     }
 
-    fun addUser(user: FirebaseUser, nickname: String) {
-        val id = user.uid
-        val newUser = User(id, nickname, user.email)
+    //TODO Remove user?
+    //TODO Change nickname?
+
+    fun addUser(firebaseUser: FirebaseUser, nickname: String) {
+        val id = firebaseUser.uid
+        val newUser = User(id, nickname, firebaseUser.email)
         db.collection(USERS).document(id).set(newUser)
     }
 
@@ -64,14 +67,13 @@ class FirestoreRepository {
         //Add a conversation reference to each participant's list of active conversations
         for (user in participants) {
             val conversationReference = ChatReference(chat.id, participants)
-            db.collection(USERS).document(user.id).collection(ACTIVE_CHATS)
-                .document(chat.id).set(conversationReference)
+            db.collection(USERS).document(user.id).collection(ACTIVE_CHATS).document(chat.id)
+                .set(conversationReference)
         }
     }
 
     private fun addActiveChatsReferencesSnapshotListener(
-        currentUser: FirebaseUser,
-        onComplete: () -> Unit
+        currentUser: FirebaseUser, onComplete: () -> Unit
     ) {
         db.collection(USERS).document(currentUser.uid).collection(ACTIVE_CHATS_REFERENCES)
             .addSnapshotListener { snapshot, error ->
@@ -93,13 +95,12 @@ class FirestoreRepository {
             }
     }
 
-//TODO remake to
-    fun addActiveChatsSnapshotListener(currentUser: FirebaseUser, onComplete: () -> Unit) {
+    //TODO Error handling. Find another way that uses one snapshot listener?
+    fun addActiveChatsSnapshotListener(currentUser: FirebaseUser) {
         addActiveChatsReferencesSnapshotListener(currentUser) {
             val tempList: MutableList<Chat> = mutableListOf()
             for (reference in activeConversationsReferences) {
-                db.collection(CHATS).document(reference.id).get()
-                    .addOnSuccessListener { snapshot ->
+                db.collection(CHATS).document(reference.id).get().addOnSuccessListener { snapshot ->
                         val conversation = snapshot.toObject<Chat>()
                         conversation?.let {
                             tempList.add(conversation)
@@ -107,7 +108,6 @@ class FirestoreRepository {
                     }
             }
             activeChats.value = tempList
-            onComplete()
         }
     }
 
@@ -128,5 +128,4 @@ class FirestoreRepository {
             }
         }
     }
-
 }
