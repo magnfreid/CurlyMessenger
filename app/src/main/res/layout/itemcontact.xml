@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="3dp">
+    android:layout_margin="3dp"
+    >
     <!--
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgeUser"
@@ -33,6 +34,7 @@
                 android:text="TextView"
                 android:textStyle="bold"
                 android:textSize="50px"
+                android:textColor="@color/black"
                 android:layout_marginBottom="3dp"/>
 
             <TextView
@@ -40,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textColor="@color/black"
                 android:textStyle="italic"
                 android:paddingLeft="12dp"/>
         </LinearLayout>
