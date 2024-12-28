@@ -21,11 +21,15 @@ class FirestoreRepository {
 
     private val db = Firebase.firestore
 
-    //All registered users
+    /**
+     * All registered users of the app.
+     */
     var allUsers: MutableLiveData<List<User>> = MutableLiveData(listOf())
         private set
 
-    //The current user's list of active conversations
+    /**
+     * The current FirebaseUser's active chats.
+     */
     var activeChats: MutableLiveData<List<Chat>> = MutableLiveData(listOf())
         private set
 
@@ -41,6 +45,7 @@ class FirestoreRepository {
         val newUser = User(id, nickname, user.email)
         db.collection(USERS).document(id).set(newUser)
     }
+
 
     //TODO Handle onSuccess and onFailure for both CRUD operations (use a list of errors?)
     fun startNewChat(
@@ -88,7 +93,7 @@ class FirestoreRepository {
             }
     }
 
-
+//TODO remake to
     fun addActiveChatsSnapshotListener(currentUser: FirebaseUser, onComplete: () -> Unit) {
         addActiveChatsReferencesSnapshotListener(currentUser) {
             val tempList: MutableList<Chat> = mutableListOf()
@@ -121,7 +126,6 @@ class FirestoreRepository {
                     }
                 }
             }
-
         }
     }
 
