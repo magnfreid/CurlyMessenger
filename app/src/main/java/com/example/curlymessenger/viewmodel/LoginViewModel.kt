@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.curlymessenger.repository.AuthRepository
 import com.google.firebase.auth.FirebaseUser
 
-class AuthViewModel : ViewModel() {
+class LoginViewModel : ViewModel() {
     private val authRepository = AuthRepository()
 
     val currentUser: LiveData<FirebaseUser> get() = authRepository.currentUser
