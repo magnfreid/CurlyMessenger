@@ -35,10 +35,10 @@ class FragmentMain : Fragment() {
 
         // Initialize Firebase Realtime Database reference
         // database = FirebaseDatabase.getInstance().getReference("chats")
-        //
+
         // Set up RecyclerView
         setupRecyclerView()
-        //
+
         // Fetch data from Firebase
         //fetchChatsFromFirebase()
 
@@ -53,9 +53,6 @@ class FragmentMain : Fragment() {
         val message1 = Message(id = "1", messageText = "Hello!", sender = user1)
         val message2 = Message(id = "2", messageText = "Hi Alice!", sender = user2)
         val user3 = User(id = "1", nickname = "Alice", email = "alice@example.com")
-        val user4 = User(id = "2", nickname = "Bob", email = "bob@example.com")
-        val message3 = Message(id = "1", messageText = "Hello!", sender = user1)
-        val message4 = Message(id = "2", messageText = "Hi Alice!", sender = user2)
 
         val chat = Chat(id = "1", participants = listOf(user1, user2), messages = listOf(message1, message2))
         chatList.add(chat)
