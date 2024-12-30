@@ -16,4 +16,4 @@ class LoginActivity : AppCompatActivity() {
                 .commit()
         }
     }
-}
+} //Fungerar det nu med pull-request
