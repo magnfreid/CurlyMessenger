@@ -1,8 +1,7 @@
-package com.example.curlymessenger.ui.login
+package com.example.curlymessenger.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.curlymessenger.LoginFragment
 import com.example.curlymessenger.R
 
 class LoginActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.curlymessenger
+package com.example.curlymessenger.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import com.example.curlymessenger.databinding.FragmentLoginBinding
-import com.example.curlymessenger.view.MainActivity
 import com.example.curlymessenger.viewmodel.AuthViewModel
 
 class LoginFragment : Fragment() {
