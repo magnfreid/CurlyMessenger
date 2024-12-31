@@ -2,6 +2,7 @@ package com.example.curlymessenger.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Firebase
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
@@ -32,13 +33,13 @@ class AuthRepository {
     fun registerWithEmailAndPassword(
         email: String,
         password: String,
-        onSuccess: () -> Unit,
+        onSuccess: (AuthResult) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener { authResult ->
             val user = authResult.user
             user?.let {
-                onSuccess()
+                onSuccess(authResult)
             } ?: onFailure(Exception("User ID error."))
         }.addOnFailureListener {
             onFailure(it)

@@ -10,14 +10,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.curlymessenger.databinding.FragmentLoginBinding
-import com.example.curlymessenger.viewmodel.AuthViewModel
+import com.example.curlymessenger.viewmodel.MainViewModel
 
 class LoginFragment : Fragment() {
     private var _binding : FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var et_email : EditText
     private lateinit var et_pass : EditText
-    private val authViewModel : AuthViewModel by viewModels()
+    private val mainViewModel : MainViewModel by viewModels()
 
     override fun onCreateView(
         inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle ?) :
@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
             val pass = et_pass.text.toString()
 
             if (loginValid(email, pass)) {
-                authViewModel.signInWithEmailAndPassword(email, pass,
+                mainViewModel.signInWithEmailAndPassword(email, pass,
                     onSuccess = {
                         startActivity(Intent(requireActivity(), MainActivity::class.java))
                         requireActivity().finish()

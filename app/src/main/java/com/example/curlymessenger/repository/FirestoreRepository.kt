@@ -33,7 +33,7 @@ class FirestoreRepository {
     var activeChats: MutableLiveData<List<Chat>> = MutableLiveData(listOf())
         private set
 
-    private var activeConversationsReferences: MutableList<ChatReference> = mutableListOf()
+    private var activeChatReferences: MutableList<ChatReference> = mutableListOf()
 
 
     init {
@@ -43,7 +43,7 @@ class FirestoreRepository {
     //TODO Remove user?
     //TODO Change nickname?
 
-    fun addUser(firebaseUser: FirebaseUser, nickname: String) {
+    fun addUserToDatabase(firebaseUser: FirebaseUser, nickname: String) {
         val id = firebaseUser.uid
         val newUser = User(id, nickname, firebaseUser.email)
         db.collection(USERS).document(id).set(newUser)
@@ -88,7 +88,7 @@ class FirestoreRepository {
                             val chatReference = document.toObject<ChatReference>()
                             tempList.add(chatReference)
                         }
-                        activeConversationsReferences = tempList
+                        activeChatReferences = tempList
                         onComplete()
                     }
                 }
@@ -99,7 +99,7 @@ class FirestoreRepository {
     fun addActiveChatsSnapshotListener(currentUser: FirebaseUser) {
         addActiveChatsReferencesSnapshotListener(currentUser) {
             val tempList: MutableList<Chat> = mutableListOf()
-            for (reference in activeConversationsReferences) {
+            for (reference in activeChatReferences) {
                 db.collection(CHATS).document(reference.id).get().addOnSuccessListener { snapshot ->
                         val conversation = snapshot.toObject<Chat>()
                         conversation?.let {
