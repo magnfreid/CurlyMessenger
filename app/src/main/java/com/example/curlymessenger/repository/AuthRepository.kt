@@ -3,6 +3,7 @@ package com.example.curlymessenger.repository
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
@@ -10,18 +11,19 @@ class AuthRepository {
 
     private val auth = Firebase.auth
 
-    var currentUser: MutableLiveData<FirebaseUser> = MutableLiveData(null)
+    private val authStateListener: FirebaseAuth.AuthStateListener = FirebaseAuth.AuthStateListener {
+        currentUser.postValue(it.currentUser)
+    }
+
+    var currentUser: MutableLiveData<FirebaseUser> = MutableLiveData(auth.currentUser)
         private set
 
     init {
-        currentUser.value = auth.currentUser
+        auth.addAuthStateListener(authStateListener)
     }
 
     fun signInWithEmailAndPassword(
-        email: String,
-        password: String,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
+        email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit
     ) {
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
             onSuccess()
@@ -40,17 +42,16 @@ class AuthRepository {
             val user = authResult.user
             user?.let {
                 onSuccess(authResult)
-            } ?: onFailure(Exception("User ID error."))
+            }
         }.addOnFailureListener {
             onFailure(it)
         }
     }
 
-    fun signInWithGoogleAccount(
-        email: String,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
-        //TODO implement Google login
+    //TODO Make sure this is run to avoid memory leaks
+    fun onClear() {
+        auth.removeAuthStateListener(authStateListener)
     }
+
+
 }
