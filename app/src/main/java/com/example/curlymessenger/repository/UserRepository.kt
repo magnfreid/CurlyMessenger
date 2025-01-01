@@ -2,6 +2,7 @@ package com.example.curlymessenger.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.curlymessenger.model.USERS
 import com.example.curlymessenger.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthResult
@@ -14,10 +15,6 @@ class UserRepository {
 
     private val auth = Firebase.auth
     private val db = Firebase.firestore
-
-    companion object {
-        private const val USERS = "users"
-    }
 
     init {
         addUsersSnapshotListener()

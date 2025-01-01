@@ -1,7 +1,9 @@
 package com.example.curlymessenger.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.example.curlymessenger.model.CHATS
 import com.example.curlymessenger.model.Chat
+import com.example.curlymessenger.model.PARTICIPANTS
 import com.example.curlymessenger.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -9,11 +11,6 @@ import com.google.firebase.firestore.toObjects
 
 class ChatRepository {
     private val db = Firebase.firestore
-
-    companion object {
-        private const val CHATS = "chats"
-        private const val PARTICIPANTS = "participants"
-    }
 
     var activeChats: MutableLiveData<List<Chat>> = MutableLiveData(listOf())
         private set
