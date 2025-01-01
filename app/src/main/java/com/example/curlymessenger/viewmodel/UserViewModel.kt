@@ -3,16 +3,13 @@ package com.example.curlymessenger.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.curlymessenger.model.User
-import com.example.curlymessenger.repository.AuthRepository
-import com.example.curlymessenger.repository.DatabaseRepository
-import com.google.firebase.auth.FirebaseUser
+import com.example.curlymessenger.repository.UserRepository
 
 class UserViewModel : ViewModel() {
 
-    private val dbRepo = DatabaseRepository()
-    private val authRepo = AuthRepository()
+    private val userRepo = UserRepository()
 
-    val allUsers: LiveData<List<User>> get() = dbRepo.users
-    val currentUser: LiveData<FirebaseUser> get() = authRepo.currentUser
+    val allUsers: LiveData<List<User>> get() = userRepo.users
+    val currentUser: LiveData<User?> get() = userRepo.currentUser
 
 }

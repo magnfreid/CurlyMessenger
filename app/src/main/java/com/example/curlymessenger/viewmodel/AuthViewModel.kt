@@ -1,18 +1,15 @@
 package com.example.curlymessenger.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.curlymessenger.model.User
-import com.example.curlymessenger.repository.AuthRepository
-import com.example.curlymessenger.repository.DatabaseRepository
+import com.example.curlymessenger.repository.UserRepository
 
 class AuthViewModel : ViewModel() {
-    private val authRepo = AuthRepository()
-    private val dbRepo = DatabaseRepository()
+    private val userRepo = UserRepository()
 
     fun signInWithEmailAndPassword(
         email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit
     ) {
-        authRepo.signInWithEmailAndPassword(email, password, onSuccess, onFailure)
+        userRepo.signInWithEmailAndPassword(email, password, onSuccess, onFailure)
     }
 
     fun registerWithEmailAndPassword(
@@ -22,18 +19,11 @@ class AuthViewModel : ViewModel() {
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        authRepo.registerWithEmailAndPassword(
-            email,
+        userRepo.registerWithEmailAndPassword(email,
             password,
-            onSuccess = { authResult ->
-                authResult.user?.let { firebaseUser ->
-                    val newUser = User(firebaseUser.uid, nickname, firebaseUser.email)
-                    dbRepo.addUserToDatabase(newUser)
-                }
-                onSuccess()
-            },
-            onFailure = onFailure
-        )
+            nickname,
+            { onSuccess() },
+            { onFailure(it) })
 
     }
 }

@@ -4,21 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.curlymessenger.model.Chat
 import com.example.curlymessenger.model.User
-import com.example.curlymessenger.repository.AuthRepository
-import com.example.curlymessenger.repository.DatabaseRepository
-import com.google.firebase.auth.FirebaseUser
+import com.example.curlymessenger.repository.UserRepository
+import com.example.curlymessenger.repository.ChatRepository
 
 class ChatViewModel : ViewModel() {
 
-    private val dbRepo = DatabaseRepository()
-    private val authRepo = AuthRepository()
+    private val chatRepo = ChatRepository()
+    private val userRepo = UserRepository()
 
 
-    val activeChats: LiveData<List<Chat>> get() = dbRepo.activeChats
-    private val currentUser: LiveData<FirebaseUser> get() = authRepo.currentUser
+    val activeChats: LiveData<List<Chat>> = chatRepo.activeChats
+    private val currentUser: LiveData<User?> get() = userRepo.currentUser
 
-    private val currentUserObserver: (value: FirebaseUser) -> Unit = { firebaseUser ->
-        dbRepo.getActiveChats(firebaseUser.uid)
+    private val currentUserObserver: (value: User?) -> Unit = { user ->
+        user?.let {
+            chatRepo.setActiveChatsSnapshotListener(user.id)
+        }
     }
 
     init {
@@ -26,11 +27,9 @@ class ChatViewModel : ViewModel() {
     }
 
     fun startNewChat(
-        participants: List<User>,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
-    ){
-        dbRepo.startNewChat(participants, onSuccess, onFailure)
+        participants: List<User>, onSuccess: () -> Unit, onFailure: (Exception) -> Unit
+    ) {
+        chatRepo.startNewChat(participants, onSuccess, onFailure)
     }
 
     override fun onCleared() {
