@@ -2,7 +2,7 @@ package com.example.curlymessenger.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.curlymessenger.model.USERS
+import com.example.curlymessenger.model.PATH_USERS
 import com.example.curlymessenger.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthResult
@@ -69,11 +69,11 @@ class UserRepository {
     }
 
     private fun addUserToDatabase(user: User) {
-        db.collection(USERS).document(user.id).set(user)
+        db.collection(PATH_USERS).document(user.id).set(user)
     }
 
     private fun addUsersSnapshotListener() {
-        db.collection(USERS).addSnapshotListener { snapshot, error ->
+        db.collection(PATH_USERS).addSnapshotListener { snapshot, error ->
             if (error != null) {
                 Log.i("Fetching users error:", error.message.toString())
             } else {
@@ -89,7 +89,7 @@ class UserRepository {
         auth.addAuthStateListener { firebaseAuth ->
             val firebaseUser = firebaseAuth.currentUser
             firebaseUser?.let {
-                db.collection(USERS).document(firebaseUser.uid).get()
+                db.collection(PATH_USERS).document(firebaseUser.uid).get()
                     .addOnSuccessListener { snapshot ->
                         currentUser.value = snapshot.toObject<User>()
                     }.addOnFailureListener {

@@ -1,9 +1,9 @@
 package com.example.curlymessenger.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.curlymessenger.model.CHATS
+import com.example.curlymessenger.model.PATH_CHATS
 import com.example.curlymessenger.model.Chat
-import com.example.curlymessenger.model.PARTICIPANTS
+import com.example.curlymessenger.model.PATH_PARTICIPANTS
 import com.example.curlymessenger.model.User
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -19,7 +19,7 @@ class ChatRepository {
      * Sets the snapshot listener for active chats for the user that is currently logged in.
      */
     fun setActiveChatsSnapshotListener(currentUserId: String) {
-        db.collection(CHATS).whereArrayContains(PARTICIPANTS, currentUserId)
+        db.collection(PATH_CHATS).whereArrayContains(PATH_PARTICIPANTS, currentUserId)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
                     //TODO Error handling
@@ -39,7 +39,7 @@ class ChatRepository {
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit,
     ) {
-        val chatDocument = db.collection(CHATS).document()
+        val chatDocument = db.collection(PATH_CHATS).document()
         val chat = Chat(chatDocument.id, participants)
         chatDocument.set(chat).addOnSuccessListener {
             onSuccess()
