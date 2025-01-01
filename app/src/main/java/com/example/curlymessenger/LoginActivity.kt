@@ -2,8 +2,8 @@ package com.example.curlymessenger.ui.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.curlymessenger.LoginFragment
 import com.example.curlymessenger.R
+import com.example.curlymessenger.view.LoginFragment
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
