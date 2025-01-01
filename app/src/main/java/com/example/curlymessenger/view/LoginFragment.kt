@@ -2,6 +2,7 @@ package com.example.curlymessenger.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.example.curlymessenger.R
 import com.example.curlymessenger.databinding.FragmentLoginBinding
 import com.example.curlymessenger.viewmodel.AuthViewModel
 
@@ -49,6 +51,12 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText( requireContext(), "Wrong Email or Password", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnRegister.setOnClickListener{
+            startActivity(Intent(requireActivity(), RegisterFragment::class.java))
+            requireActivity().finish()
+            Log.i("!!!", "Can't connect to RegisterFragment")
         }
     }
 
