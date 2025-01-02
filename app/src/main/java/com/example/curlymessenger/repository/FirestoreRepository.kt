@@ -24,7 +24,7 @@ class FirestoreRepository {
     /**
      * All registered users of the app.
      */
-    var allUsers: MutableLiveData<List<User>> = MutableLiveData(listOf())
+    var allUsers: MutableLiveData<List<User>?> = MutableLiveData(listOf())
         private set
 
     /**
@@ -71,6 +71,35 @@ class FirestoreRepository {
                 .set(conversationReference)
         }
     }
+
+    // Function to get all users from Firestore
+    fun getAllUsers(onSuccess: (List<User>) -> Unit) {
+        db.collection(USERS).get()
+            .addOnSuccessListener { snapshot ->
+                val users = snapshot.documents.mapNotNull { it.toObject<User>() }
+                onSuccess(users)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirestoreRepository", "Error getting users", exception)
+            }
+    }
+
+
+    // Function to search for users based on a query
+    fun searchUsers(query: String, onSuccess: (List<User>) -> Unit) {
+        db.collection(USERS)
+            .whereGreaterThanOrEqualTo("nickname", query)  // Använd 'nickname' eller relevant fält för att söka
+            .whereLessThanOrEqualTo("nickname", query + "\uf8ff")  // Gör sökningen för både större och mindre än query
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val users = snapshot.documents.mapNotNull { it.toObject<User>() }
+                onSuccess(users)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirestoreRepository", "Error searching users", exception)
+            }
+    }
+
 
     private fun addActiveChatsReferencesSnapshotListener(
         currentUser: FirebaseUser, onComplete: () -> Unit
