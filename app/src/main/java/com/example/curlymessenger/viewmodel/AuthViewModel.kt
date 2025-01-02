@@ -1,38 +1,29 @@
 package com.example.curlymessenger.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.curlymessenger.repository.AuthRepository
-import com.google.firebase.auth.FirebaseUser
+import com.example.curlymessenger.repository.UserRepository
 
 class AuthViewModel : ViewModel() {
-    private val authRepository = AuthRepository()
-
-    val currentUser: LiveData<FirebaseUser> get() = authRepository.currentUser
+    private val userRepo = UserRepository()
 
     fun signInWithEmailAndPassword(
-        email: String,
-        password: String,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
+        email: String, password: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit
     ) {
-        authRepository.signInWithEmailAndPassword(email, password, onSuccess, onFailure)
+        userRepo.signInWithEmailAndPassword(email, password, onSuccess, onFailure)
     }
 
     fun registerWithEmailAndPassword(
         email: String,
         password: String,
+        nickname: String,
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        authRepository.registerWithEmailAndPassword(email, password, onSuccess, onFailure)
-    }
+        userRepo.registerWithEmailAndPassword(email,
+            password,
+            nickname,
+            { onSuccess() },
+            { onFailure(it) })
 
-    fun loginWithGoogleAccount(
-        email: String,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
-        authRepository.signInWithGoogleAccount(email, onSuccess, onFailure)
     }
 }
