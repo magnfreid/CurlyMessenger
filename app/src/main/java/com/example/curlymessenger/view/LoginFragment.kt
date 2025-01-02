@@ -14,7 +14,7 @@ import com.example.curlymessenger.R
 import com.example.curlymessenger.databinding.FragmentLoginBinding
 import com.example.curlymessenger.viewmodel.AuthViewModel
 
-class LoginFragment : Fragment() {
+class LoginFragment(val btnRegisterOnClick: () -> Unit) : Fragment() {
     private var _binding : FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var et_email : EditText
@@ -54,9 +54,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener{
-            startActivity(Intent(requireActivity(), RegisterFragment::class.java))
-            requireActivity().finish()
-            Log.i("!!!", "Can't connect to RegisterFragment")
+            btnRegisterOnClick()
         }
     }
 
