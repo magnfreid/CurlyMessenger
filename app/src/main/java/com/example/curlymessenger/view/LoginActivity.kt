@@ -11,9 +11,14 @@ class LoginActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, LoginFragment())
+                .replace(R.id.fragmentContainerView, LoginFragment() {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView, RegisterFragment())
+                        .commit()
+                })
                 .commit()
         }
+
     }
-} //Fungerar det nu med pull-request
+}
 

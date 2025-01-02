@@ -32,7 +32,7 @@ class MyAdapter(private val chats: List<Chat>,
         val chat = chats[position]
 
         // Safe call on lastMessage to ensure it's not null
-        val lastMessage = chat.messages.lastOrNull()
+        val lastMessage = chat.messages?.lastOrNull()
 
         // Use safe call to avoid the null pointer exception
         holder.tvUsername.text = lastMessage?.sender?.nickname ?: "Unknown"

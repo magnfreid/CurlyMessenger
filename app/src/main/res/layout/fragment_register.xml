@@ -48,7 +48,6 @@
         android:layout_marginTop="25dp"
         android:ems="10"
         android:hint="Nickname"
-        android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/et_password_register"
         app:layout_constraintLeft_toLeftOf="@id/register_layout"
         app:layout_constraintRight_toRightOf="@id/register_layout"/>
