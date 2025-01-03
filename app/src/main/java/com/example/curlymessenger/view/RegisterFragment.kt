@@ -54,7 +54,6 @@ class RegisterFragment : Fragment() {
         }
     }
 
-
     fun loginValid(email : String, password : String) : Boolean{
         val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
         val isPassValid = password.length >= 4

@@ -14,11 +14,11 @@ class LoginActivity : AppCompatActivity() {
                 .replace(R.id.fragmentContainerView, LoginFragment() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainerView, RegisterFragment())
+                        .addToBackStack(null)
                         .commit()
                 })
                 .commit()
         }
-
     }
 }
 
