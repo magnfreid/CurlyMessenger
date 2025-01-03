@@ -34,6 +34,9 @@ class LoginFragment(val btnRegisterOnClick: () -> Unit) : Fragment() {
         et_email = binding.etEmail
         et_pass = binding.etPassword
 
+        et_email.setText("test@test.com")
+        et_pass.setText("123456")
+
         binding.btnLogin.setOnClickListener {
             val email = et_email.text.toString()
             val pass = et_pass.text.toString()
