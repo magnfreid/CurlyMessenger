@@ -43,25 +43,25 @@ class FragmentMain : Fragment() {
         //fetchChatsFromFirebase()
 
         //generatdatalocal prova
-        generateLocalData()
+//        generateLocalData()
     }
     // locadata prova recyclerview
-    private fun generateLocalData() {
-
-        val user1 = User(id = "1", nickname = "Alice", email = "alice@example.com")
-        val user2 = User(id = "2", nickname = "Bob", email = "bob@example.com")
-        val message1 = Message(id = "1", messageText = "Hello!", sender = user1)
-        val message2 = Message(id = "2", messageText = "Hi Alice!", sender = user2)
-        val user3 = User(id = "1", nickname = "Alice", email = "alice@example.com")
-
-        val chat = Chat(id = "1", participants = listOf(user1, user2), messages = listOf(message1, message2))
-        chatList.add(chat)
-        val chat1 = Chat(id = "1", participants = listOf(user1, user3), messages = listOf(message1, message2))
-        chatList.add(chat1)
-        val chat2 = Chat(id = "1", participants = listOf(user1, user3), messages = listOf(message1, message2))
-        chatList.add(chat2)
-
-    }
+//    private fun generateLocalData() {
+//
+//        val user1 = User(id = "1", nickname = "Alice", email = "alice@example.com")
+//        val user2 = User(id = "2", nickname = "Bob", email = "bob@example.com")
+//        val message1 = Message(id = "1", messageText = "Hello!", sender = user1)
+//        val message2 = Message(id = "2", messageText = "Hi Alice!", sender = user2)
+//        val user3 = User(id = "1", nickname = "Alice", email = "alice@example.com")
+//
+//        val chat = Chat(id = "1", participants = listOf(user1, user2), messages = listOf(message1, message2))
+//        chatList.add(chat)
+//        val chat1 = Chat(id = "1", participants = listOf(user1, user3), messages = listOf(message1, message2))
+//        chatList.add(chat1)
+//        val chat2 = Chat(id = "1", participants = listOf(user1, user3), messages = listOf(message1, message2))
+//        chatList.add(chat2)
+//
+//    }
 
     private fun setupRecyclerView() {
         binding.myrcycler.layoutManager = LinearLayoutManager(requireContext())  // Use requireContext for Fragment
