@@ -13,7 +13,8 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObjects
 
 class ChatRepository {
-    private val db = Firebase.firestore
+
+private val db = Firebase.firestore
 
     var activeChats: MutableLiveData<List<Chat>> = MutableLiveData(listOf())
         private set
