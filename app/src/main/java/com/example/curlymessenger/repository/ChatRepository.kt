@@ -3,6 +3,8 @@ package com.example.curlymessenger.repository
 import androidx.lifecycle.MutableLiveData
 import com.example.curlymessenger.model.PATH_CHATS
 import com.example.curlymessenger.model.Chat
+import com.example.curlymessenger.model.Message
+import com.example.curlymessenger.model.PATH_MESSAGES
 import com.example.curlymessenger.model.PATH_PARTICIPANTS
 import com.example.curlymessenger.model.User
 import com.google.firebase.Firebase
@@ -14,6 +16,7 @@ class ChatRepository {
 
     var activeChats: MutableLiveData<List<Chat>> = MutableLiveData(listOf())
         private set
+    var activeMessages: MutableLiveData<List<Message>> = MutableLiveData(listOf())
 
     /**
      * Sets the snapshot listener for active chats for the user that is currently logged in.
@@ -31,6 +34,19 @@ class ChatRepository {
             }
     }
 
+    fun setActiveMessagesSnapshotListener(chatId: String) {
+        db.collection(PATH_CHATS).document(chatId).collection(PATH_MESSAGES).addSnapshotListener{
+            snapshot, error ->
+            if (error !=null) {
+                //TODO Error handling
+                return@addSnapshotListener
+            }
+            snapshot?.let {
+                activeMessages.value = snapshot.toObjects<Message>()
+            }
+        }
+    }
+
     /**
      * Creates a new chat in the database.
      */
@@ -46,5 +62,13 @@ class ChatRepository {
         }.addOnFailureListener { exception ->
             onFailure(exception)
         }
+    }
+
+    //TODO Handle errors
+    fun sendMessage(chatId: String, message: Message) {
+        val messageRef =
+            db.collection(PATH_CHATS).document(chatId).collection(PATH_MESSAGES).document()
+        message.id = messageRef.id
+        messageRef.set(message)
     }
 }
