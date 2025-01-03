@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CurlyMessenger</string>
+    <string name="search">Sök</string>
+    <string name="prompt_password">Lösenord</string>
+    <string name="action_sign_in">Logga in eller registrera dig</string>
+    <string name="action_sign_in_short">Logga in</string>
+    <string name="welcome">Välkommen!</string>
+    <string name="invalid_username">Ogiltigt användarnamn</string>
+    <string name="invalid_password">Lösenordet måste vara >5 tecken</string>
+    <string name="login_failed">Inloggningen misslyckades</string>
+    <string name="username">Användarnamn</string>
+</resources>
