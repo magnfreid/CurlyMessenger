@@ -13,11 +13,9 @@ class ChatViewModel : ViewModel() {
     private val chatRepo = ChatRepository()
     private val userRepo = UserRepository()
 
-
     val activeChats: LiveData<List<Chat>> get() = chatRepo.activeChats
     val activeMessages: LiveData<List<Message>> get() = chatRepo.activeMessages
     private val currentUser: LiveData<User?> get() = userRepo.currentUser
-
 
     private val currentUserObserver: (value: User?) -> Unit = { user ->
         user?.let {

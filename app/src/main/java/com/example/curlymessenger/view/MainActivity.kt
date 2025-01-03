@@ -10,6 +10,7 @@ import com.example.curlymessenger.R
 import com.example.curlymessenger.databinding.ActivityMainBinding
 import com.example.curlymessenger.viewmodel.ChatViewModel
 import com.example.curlymessenger.viewmodel.UserViewModel
+import com.google.firebase.FirebaseApp
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         setContentView(binding.root)
         enableEdgeToEdge()
-
+        FirebaseApp.initializeApp(this)
         // Test users
         // chatViewModel.startNewChat(listOf( User("08NyniWLyMdu55RqystO9A4P2En1"), User("MeWTWrqEGTaeLafnqZlIyWuXVHe2")), {}, {})
 
