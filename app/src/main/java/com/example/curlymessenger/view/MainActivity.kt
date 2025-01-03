@@ -26,20 +26,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        // Test users
-        // chatViewModel.startNewChat(listOf( User("08NyniWLyMdu55RqystO9A4P2En1"), User("MeWTWrqEGTaeLafnqZlIyWuXVHe2")), {}, {})
+//         Test users
+//         chatViewModel.startNewChat(listOf( User("08NyniWLyMdu55RqystO9A4P2En1"), User("MeWTWrqEGTaeLafnqZlIyWuXVHe2")), {}, {})
+//
+//        chatViewModel.setActiveMessagesSnapshotListener("x8Rf4Fpbsak6yo7B0CDG")
+//
+//        chatViewModel.activeMessages.observe(this){
+//            Log.i("Active messages", it.toString())
+//        }
+//
+//        userViewModel.currentUser.observe(this) {
+//            Log.i("Current user: ", it.toString())
+//        }
+//
+//        chatViewModel.activeChats.observe(this) {
+//            Log.i("Active Chats: ", it.toString())
+//        }
 
-        userViewModel.currentUser.observe(this) {
-            Log.i("Current user: ", it.toString())
-        }
-
-        chatViewModel.activeChats.observe(this) {
-            Log.i("Active Chats: ", it.toString())
-        }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, UserFragment())
+                .replace(R.id.fragment_container, FragmentMain())
                 .commit()
         }
     }

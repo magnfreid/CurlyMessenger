@@ -14,8 +14,6 @@ class UserViewModel : ViewModel() {
     val allUsers: LiveData<List<User>> get() = userRepo.users
     val currentUser: LiveData<User?> get() = userRepo.currentUser
 
-    fun startNewChat(participants: List<User>, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        chatRepo.startNewChat(participants, onSuccess, onFailure)
-    }
+
 
 }

@@ -15,15 +15,15 @@ import com.example.curlymessenger.databinding.FragmentLoginBinding
 import com.example.curlymessenger.viewmodel.AuthViewModel
 
 class LoginFragment(val btnRegisterOnClick: () -> Unit) : Fragment() {
-    private var _binding : FragmentLoginBinding? = null
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private lateinit var et_email : EditText
-    private lateinit var et_pass : EditText
-    private val authViewModel : AuthViewModel by viewModels()
+    private lateinit var et_email: EditText
+    private lateinit var et_pass: EditText
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
-        inflater : LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle ?) :
-            View{
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,35 +34,38 @@ class LoginFragment(val btnRegisterOnClick: () -> Unit) : Fragment() {
         et_email = binding.etEmail
         et_pass = binding.etPassword
 
-        et_email.setText("test@test.com")
-        et_pass.setText("123456")
+//        Test user
+//        et_email.setText("test@test.com")
+//        et_pass.setText("123456")
 
         binding.btnLogin.setOnClickListener {
             val email = et_email.text.toString()
             val pass = et_pass.text.toString()
 
             if (loginValid(email, pass)) {
-                authViewModel.signInWithEmailAndPassword(email, pass,
-                    onSuccess = {
-                        startActivity(Intent(requireActivity(), MainActivity::class.java))
-                        requireActivity().finish()
-                    },
-                    onFailure = { exception ->
-                        Toast.makeText(requireContext(), "Failed to login: ${exception.message}", Toast.LENGTH_SHORT).show()
-                    }
-                )
+                authViewModel.signInWithEmailAndPassword(email, pass, onSuccess = {
+                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                    requireActivity().finish()
+                }, onFailure = { exception ->
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to login: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                })
             } else {
-                Toast.makeText( requireContext(), "Wrong Email or Password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Wrong Email or Password", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
-        binding.btnRegister.setOnClickListener{
+        binding.btnRegister.setOnClickListener {
             btnRegisterOnClick()
         }
     }
 
 
-    fun loginValid(email : String, password : String) : Boolean{
+    fun loginValid(email: String, password: String): Boolean {
         val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
         val isPassValid = password.length >= 4
 
@@ -73,4 +76,4 @@ class LoginFragment(val btnRegisterOnClick: () -> Unit) : Fragment() {
         super.onDestroy()
         _binding = null
     }
-    }
+}

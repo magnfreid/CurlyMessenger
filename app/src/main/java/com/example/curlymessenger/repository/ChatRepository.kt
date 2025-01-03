@@ -18,6 +18,7 @@ class ChatRepository {
     var activeChats: MutableLiveData<List<Chat>> = MutableLiveData(listOf())
         private set
     var activeMessages: MutableLiveData<List<Message>> = MutableLiveData(listOf())
+        private set
 
     /**
      * Sets the snapshot listener for active chats for the user that is currently logged in.

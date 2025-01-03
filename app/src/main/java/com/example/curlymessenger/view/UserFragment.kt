@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.curlymessenger.adapter.UserAdapter
 import com.example.curlymessenger.databinding.FragmentUserBinding
+import com.example.curlymessenger.viewmodel.ChatViewModel
 import com.example.curlymessenger.viewmodel.UserViewModel
 
 class UserFragment : Fragment() {
@@ -19,6 +20,7 @@ class UserFragment : Fragment() {
     private var _binding: FragmentUserBinding? = null
     private val binding get() = _binding!!
     private lateinit var userViewModel: UserViewModel
+    private lateinit var chatViewModel: ChatViewModel
     private lateinit var adapter: UserAdapter
 
     override fun onCreateView(
@@ -33,6 +35,7 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        chatViewModel = ViewModelProvider(this)[ChatViewModel::class.java]
 
         setupRecyclerView()
         searchUser()
@@ -44,7 +47,7 @@ class UserFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = UserAdapter { user ->
-            userViewModel.startNewChat(listOf(user), {
+            chatViewModel.startNewChat(listOf(user), {
                 Toast.makeText(requireContext(), "Ny chatt startad med ${user.nickname}", Toast.LENGTH_SHORT).show()
             }, { exception ->
                 Toast.makeText(requireContext(), "Fel: ${exception.message}", Toast.LENGTH_SHORT).show()
