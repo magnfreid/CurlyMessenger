@@ -5,18 +5,42 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.RegisterFragment"
-    android:id="@+id/register_layout">
+    android:id="@+id/register_layout"
+    android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/imageView_register"
+    <LinearLayout
+        android:id="@+id/Linear_view_horiz"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+        <View
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/imageView_register"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_weight="1"
+            android:src="@drawable/curly" />
+
+        <View
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Linear_view_vert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        tools:src="@tools:sample/avatars"
-        app:layout_constraintLeft_toLeftOf="@id/register_layout"
-        app:layout_constraintRight_toRightOf="@id/register_layout"
-        app:layout_constraintTop_toTopOf="@id/register_layout"/>
-
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/Linear_view_horiz"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:gravity="center">
     <EditText
         android:id="@+id/et_email_register"
         android:layout_width="wrap_content"
@@ -61,6 +85,6 @@
         app:layout_constraintTop_toBottomOf="@id/et_nickname_register"
         app:layout_constraintLeft_toLeftOf="@id/register_layout"
         app:layout_constraintRight_toRightOf="@id/register_layout"/>
-
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
